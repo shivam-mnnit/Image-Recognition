@@ -3,9 +3,9 @@ import numpy as np
 import cv2
 
 def create():
-
-	if not "Training_Faces" in os.listdir("."):
-		os.mkdir("Training_Faces")
+	facesDirname = "Training_Faces"
+	if not facesDirname in os.listdir("."):
+		os.mkdir(facesDirname)
 	else:
 		return
 	
@@ -30,9 +30,9 @@ def create():
 					faces = faceCascade.detectMultiScale(image,scaleFactor=1.1,minNeighbors=5,minSize=(30, 30),flags = 0)
 
 					for (x, y, w, h) in faces:
-						os.chdir("Training_Faces")
+						os.chdir(facesDirname)
 						cv2.imwrite(str(label)+str(i)+".jpg",image[y-15:y+h+15,x-15:x+w+15])
-						arr.append( ["Training_Faces/"+str(label)+str(i)+".jpg",label] )
+						arr.append( [facesDirname+"/"+str(label)+str(i)+".jpg",label] )
 						os.chdir("../")
 						cv2.rectangle(image, (x, y), (x+w, y+h), (0, 255, 0), 2)
 						i+=1
